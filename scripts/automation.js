@@ -3,6 +3,7 @@
     // 강의 페이지 열기
     function openLecturePage(lectureRow) {
         const url = extractLectureUrl(lectureRow);
+        const startTime = extractStudyTime(lectureRow);
 
         if (!url) {
             log("강의 URL을 추출할 수 없습니다.", "error");
@@ -19,11 +20,23 @@
                 return false;
             }
         } else {
+            // URL에 'start' 쿼리 파라미터 추가
+            const urlObj = new URL(url);
+            // startTime이 존재할 경우에만 추가
+            if (startTime !== null) {
+                urlObj.searchParams.set("start", startTime);
+                log(
+                    `강의 URL에 시작시간 추가: ${urlObj.toString()}`,
+                    "success"
+                );
+            } else {
+                log("학습 시작 시간을 추출할 수 없습니다.", "warning");
+            }
+
             // background.js에 메시지 전송
-            log(`강의 URL 추출 성공: ${url}`, "success");
             chrome.runtime.sendMessage({
                 action: ACTIONS.OPEN_LECTURE_TAB,
-                url: url,
+                url: urlObj.toString(),
             });
         }
 

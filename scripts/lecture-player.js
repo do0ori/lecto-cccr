@@ -1,8 +1,10 @@
 (function () {
     log("YouTube IFrame 컨트롤러 로드됨", "success");
 
-    window.confirm = () => true;
-    window.alert = () => true;
+    const urlParams = new URLSearchParams(window.location.search);
+    const startTimeParam = urlParams.get("start");
+    const startTimeMinutes = startTimeParam ? parseInt(startTimeParam, 10) : 0;
+    const startTimeSeconds = startTimeMinutes * 60;
 
     const iframe = document.getElementById(SELECTORS.PLAYER.IFRAME);
 
@@ -35,6 +37,12 @@
     function setPlaybackRate(speed = 1) {
         sendCommand("setPlaybackRate", [speed]);
         log(`재생 속도 설정: ${speed}x`);
+    }
+
+    // 지정된 시간으로 이동
+    function seekTo(timeInSeconds) {
+        sendCommand("seekTo", [timeInSeconds, true]);
+        log(`영상 이동: ${timeInSeconds}초 = ${timeInSeconds / 60}분으로 이동`);
     }
 
     // 상태 변경 메시지 수신 (웹페이지에서 이벤트 감지)
@@ -72,6 +80,10 @@
         chrome.runtime.sendMessage({ action: ACTIONS.KEEP_ALIVE });
     }, 20000);
 
+    // startTimeMinutes 값이 0이 아니면 지정된 분(초)로 이동 후 재생
+    if (startTimeMinutes && startTimeMinutes !== 0) {
+        seekTo(startTimeSeconds);
+    }
     playVideo();
     setPlaybackRate();
     muteVideo();

@@ -68,3 +68,14 @@ function extractLectureUrl(lectureRow) {
 
     return url;
 }
+
+// 강의 진도 추출
+function extractStudyTime(lectureRow) {
+    const strongElem = lectureRow.querySelector(SELECTORS.LESSON_TABLE.TIME);
+    if (!strongElem) {
+        return null;
+    }
+    // 숫자만 추출
+    const number = parseInt(strongElem.textContent.trim(), 10);
+    return number;
+}
