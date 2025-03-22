@@ -27,26 +27,6 @@ function handleCompletionNotification() {
                         iconUrl: "icons/cccr_extension.png",
                     },
                     (notificationId) => {
-                        // 알림 소리 처리
-                        chrome.storage.sync.get(
-                            "notiSound",
-                            ({ notiSound }) => {
-                                if (notiSound !== false) {
-                                    chrome.scripting.executeScript({
-                                        target: { tabId: originalTabId },
-                                        func: () => {
-                                            const noti_sound = new Audio(
-                                                chrome.runtime.getURL(
-                                                    "audios/Slack-Ding.mp3"
-                                                )
-                                            );
-                                            noti_sound.play();
-                                        },
-                                    });
-                                }
-                            }
-                        );
-
                         // 알림 클릭 처리
                         chrome.notifications.onClicked.addListener(
                             (clickedId) => {
