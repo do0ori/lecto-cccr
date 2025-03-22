@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        />
+        <link rel="stylesheet" href="popup.css" />
+    </head>
+
+    <body>
+        <h1>Lecto</h1>
+        <h3 id="note"></h3>
+        <button id="automationButton">
+            <span class="buttonText">Start</span>
+            <div class="loader">
+                <div class="box-load1"></div>
+                <div class="box-load2"></div>
+                <div class="box-load3"></div>
+            </div>
+        </button>
+        <div class="config-container">
+            <div class="config-item">
+                <span>notification</span>
+                <label class="onoff-switch">
+                    <input id="noti-switch" type="checkbox" />
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div id="noti-options" class="noti-options" style="display: none">
+                <div class="config-item sub-item">
+                    <span>web notification</span>
+                    <label class="onoff-switch">
+                        <input id="web-noti-switch" type="checkbox" />
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="config-item sub-item">
+                    <span>discord notification</span>
+                    <label class="onoff-switch">
+                        <input id="discord-noti-switch" type="checkbox" />
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div
+                    id="webhook-container"
+                    class="webhook-container"
+                    style="display: none"
+                >
+                    <a
+                        title="Discord"
+                        href="https://discord.com/"
+                        target="_blank"
+                    >
+                        <i
+                            class="fa-brands fa-discord"
+                            style="font-size: 12px; color: #7289da"
+                            title="Discord 서버 설정(또는 채널 편집) > 연동 > 웹후크 > 새 웹후크 > 웹후크 URL 복사"
+                        ></i>
+                    </a>
+                    <input
+                        type="text"
+                        id="webhook-url"
+                        placeholder="Webhook URL"
+                    />
+                    <button id="test-webhook" class="test-button" disabled>
+                        <i
+                            class="fa-solid fa-paper-plane"
+                            style="font-size: 10px"
+                        ></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="socials">
+            <a
+                title="Lecto GitHub"
+                href="https://github.com/do0ori/lecto-cccr"
+                target="_blank"
+            >
+                <i
+                    class="fa-brands fa-github"
+                    style="font-size: 17px; color: black"
+                ></i>
+            </a>
+            <a
+                title="Email"
+                href="mailto:fuzzydo0ori@gmail.com"
+                target="_blank"
+            >
+                <i
+                    class="fa-solid fa-envelope"
+                    style="font-size: 15px; color: red"
+                ></i>
+            </a>
+        </div>
+        <script type="module" src="popup.js"></script>
+    </body>
+</html>

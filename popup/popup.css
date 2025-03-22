@@ -1,0 +1,230 @@
+body {
+    width: 200px;
+    text-align: center;
+}
+
+h1 {
+    margin: 0;
+    padding: 0;
+}
+
+h3 {
+    margin: 10px 5px;
+}
+
+button {
+    width: fit-content;
+    min-width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    border: 2.5px solid #e0e1e4;
+    box-shadow: 0px 0px 20px -20px;
+    cursor: pointer;
+    background-color: white;
+    transition: all 0.2s ease-in-out 0ms;
+    user-select: none;
+}
+
+button:hover:not(:disabled) {
+    background-color: #f2f2f2;
+    box-shadow: 0px 0px 20px -18px;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: auto;
+}
+
+hr {
+    display: block;
+    height: 0;
+    border: 0;
+    border-top: 1px solid hsl(0, 0%, 90%);
+    border-bottom: 1px solid hsl(0, 0%, 100%);
+    margin: 16px 0 6px 0;
+    padding: 0;
+}
+
+.socials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:visited {
+    color: inherit;
+}
+
+.loader {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 15px;
+    transition: all 0.4s;
+}
+
+.loader div {
+    background-color: rgb(34, 34, 34);
+    box-shadow: inset 2px 2px 10px black;
+    border-radius: 100%;
+    height: 8px;
+    width: 8px;
+}
+
+.box-load1 {
+    animation: brighten 1.2s infinite;
+}
+
+.box-load2 {
+    animation: brighten 1.2s infinite;
+    animation-delay: 0.2s;
+}
+
+.box-load3 {
+    animation: brighten 1.2s infinite;
+    animation-delay: 0.4s;
+}
+
+@keyframes brighten {
+    100% {
+        background-color: rgb(165, 165, 165);
+        box-shadow: none;
+    }
+}
+
+/* Base styles */
+.onoff-switch {
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    height: 16px;
+}
+
+.onoff-switch input {
+    display: none;
+}
+
+/* Slider styles */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 10px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+/* Toggled state */
+input:checked + .slider {
+    background-color: #2196f3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(14px);
+}
+
+.config-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.noti-options {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.config-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px;
+}
+
+/* Webhook input styles */
+.webhook-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 0 30px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.webhook-input-container {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+#webhook-url {
+    flex: 1;
+    width: 0; /* flex-grow가 1이므로 남은 공간을 채우되, 초기 너비는 0 */
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 11px;
+    box-sizing: border-box;
+}
+
+#webhook-url:focus {
+    outline: none;
+    border-color: #2196f3;
+}
+
+.test-button {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    min-width: unset;
+    padding: 0;
+    background-color: #7289da;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.test-button:hover:not(:disabled) {
+    background-color: #1976d2;
+}
+
+.test-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.fa-discord {
+    flex-shrink: 0;
+}
