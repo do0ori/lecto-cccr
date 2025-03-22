@@ -27,16 +27,29 @@
         "service_worker": "background.js",
         "type": "module"
     },
+    "content_scripts": [
+        {
+            "matches": ["https://www.cccr-edu.or.kr/*"],
+            "js": [
+                "scripts/constants.js",
+                "scripts/helper.js",
+                "scripts/content.js"
+            ],
+            "run_at": "document_idle"
+        }
+    ],
     "web_accessible_resources": [
         {
+            "matches": ["https://www.cccr-edu.or.kr/*"],
             "resources": [
-                "audios/Slack-Ding.mp3",
+                "popup/popup.html",
+                "popup/popup.css",
+                "popup/popup.js",
                 "scripts/automation.js",
                 "scripts/lecture-player.js",
                 "scripts/constants.js",
                 "scripts/helper.js"
-            ],
-            "matches": ["https://www.cccr-edu.or.kr/*"]
+            ]
         }
     ],
     "content_security_policy": {

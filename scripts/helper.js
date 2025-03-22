@@ -17,6 +17,18 @@ function log(message, type = "info") {
     }
 }
 
+// 미완료 강의 찾기
+function findIncompleteLectures() {
+    const rows = document.querySelectorAll(SELECTORS.LESSON_TABLE.ROW);
+    const incompleteLectures = Array.from(rows).filter((row) => {
+        const statusCell = row.querySelector(
+            SELECTORS.LESSON_TABLE.STATUS_CELL
+        );
+        return !statusCell.querySelector(SELECTORS.LESSON_STATUS.COMPLETE);
+    });
+    return incompleteLectures;
+}
+
 // 강의 URL 추출 함수
 function extractLectureUrl(lectureRow) {
     const studyButton = lectureRow.querySelector(

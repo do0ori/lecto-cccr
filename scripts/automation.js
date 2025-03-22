@@ -1,17 +1,5 @@
 // 강의 자동화 메인 스크립트
 (function () {
-    // 미완료 강의 찾기
-    function findIncompleteLectures() {
-        const rows = document.querySelectorAll(SELECTORS.LESSON_TABLE.ROW);
-        const incompleteLectures = Array.from(rows).filter((row) => {
-            const statusCell = row.querySelector(
-                SELECTORS.LESSON_TABLE.STATUS_CELL
-            );
-            return !statusCell.querySelector(SELECTORS.LESSON_STATUS.COMPLETE);
-        });
-        return incompleteLectures;
-    }
-
     // 강의 페이지 열기
     function openLecturePage(lectureRow) {
         const url = extractLectureUrl(lectureRow);

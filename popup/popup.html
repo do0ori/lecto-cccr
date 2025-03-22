@@ -10,25 +10,9 @@
     </head>
 
     <body>
-        <h1>Lecto</h1>
-        <h3 id="note"></h3>
-        <button id="automationButton">
-            <span class="buttonText">Start</span>
-            <div class="loader">
-                <div class="box-load1"></div>
-                <div class="box-load2"></div>
-                <div class="box-load3"></div>
-            </div>
-        </button>
+        <h1>Lec<span style="color: #7877d6">to</span></h1>
         <div class="config-container">
-            <div class="config-item">
-                <span>notification</span>
-                <label class="onoff-switch">
-                    <input id="noti-switch" type="checkbox" />
-                    <span class="slider"></span>
-                </label>
-            </div>
-            <div id="noti-options" class="noti-options" style="display: none">
+            <div id="noti-options" class="noti-options" style="display: flex">
                 <div class="config-item sub-item">
                     <span>web notification</span>
                     <label class="onoff-switch">
@@ -43,11 +27,7 @@
                         <span class="slider"></span>
                     </label>
                 </div>
-                <div
-                    id="webhook-container"
-                    class="webhook-container"
-                    style="display: none"
-                >
+                <div id="webhook-container" class="webhook-container">
                     <a
                         title="Discord"
                         href="https://discord.com/"

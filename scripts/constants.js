@@ -1,4 +1,7 @@
 const SELECTORS = {
+    TITLE: "h5.tb_title",
+    AUTOMATION_BUTTON: "lecto-start-button",
+
     LESSON_STATUS: {
         COMPLETE: "span.lesson_complete",
         PROCEEDING: "span.lesson_proceeding",
@@ -20,6 +23,7 @@ const SELECTORS = {
 
 const ACTIONS = {
     EXECUTE_AUTOMATION: "EXECUTE_AUTOMATION",
+    STOP_AUTOMATION: "STOP_AUTOMATION",
     END_AUTOMATION: "END_AUTOMATION",
     PROCESS_NEXT_LECTURE: "PROCESS_NEXT_LECTURE",
     GET_STATE: "GET_STATE",

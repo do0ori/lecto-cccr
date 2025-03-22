@@ -8,10 +8,6 @@ h1 {
     padding: 0;
 }
 
-h3 {
-    margin: 10px 5px;
-}
-
 button {
     width: fit-content;
     min-width: 100px;
@@ -139,7 +135,7 @@ a:visited {
 
 /* Toggled state */
 input:checked + .slider {
-    background-color: #2196f3;
+    background-color: #7877d6;
 }
 
 input:checked + .slider:before {
@@ -196,7 +192,7 @@ input:checked + .slider:before {
 
 #webhook-url:focus {
     outline: none;
-    border-color: #2196f3;
+    border-color: #7877d6;
 }
 
 .test-button {
@@ -217,7 +213,7 @@ input:checked + .slider:before {
 }
 
 .test-button:hover:not(:disabled) {
-    background-color: #1976d2;
+    background-color: #7877d6;
 }
 
 .test-button:disabled {

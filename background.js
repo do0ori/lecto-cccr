@@ -8,15 +8,8 @@ let originalTabId = null;
 // 강의 완료 후 알림 처리
 function handleCompletionNotification() {
     chrome.storage.sync.get(
-        ["notiEnabled", "webNotiEnabled", "discordNotiEnabled", "webhookUrl"],
-        async ({
-            notiEnabled,
-            webNotiEnabled,
-            discordNotiEnabled,
-            webhookUrl,
-        }) => {
-            if (!notiEnabled) return;
-
+        ["webNotiEnabled", "discordNotiEnabled", "webhookUrl"],
+        async ({ webNotiEnabled, discordNotiEnabled, webhookUrl }) => {
             // 웹 알림 처리
             if (webNotiEnabled) {
                 chrome.notifications.create(
@@ -58,7 +51,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     switch (message.action) {
         case ACTIONS.EXECUTE_AUTOMATION:
             isRunning = true;
-            if (message.tabId) originalTabId = message.tabId;
+            if (!originalTabId) originalTabId = sender.tab.id;
             log("자동화 시작");
             chrome.tabs.reload(originalTabId, () => {
                 log("페이지 새로고침 요청됨, 로딩 감지 시작");
@@ -75,11 +68,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
                         chrome.scripting.executeScript({
                             target: { tabId: originalTabId },
-                            files: [
-                                "scripts/constants.js",
-                                "scripts/helper.js",
-                                "scripts/automation.js",
-                            ],
+                            files: ["scripts/automation.js"],
                         });
 
                         chrome.tabs.onUpdated.removeListener(listener);
@@ -88,11 +77,19 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             });
             break;
 
+        case ACTIONS.STOP_AUTOMATION:
+            log("자동화 중지");
+            isRunning = false;
+            totalLectures = 0;
+            chrome.tabs.reload(originalTabId);
+            break;
+
         case ACTIONS.END_AUTOMATION:
             log("자동화 종료", "success");
             handleCompletionNotification();
             isRunning = false;
             totalLectures = 0;
+            chrome.tabs.reload(originalTabId);
             break;
 
         case ACTIONS.OPEN_LECTURE_TAB:
