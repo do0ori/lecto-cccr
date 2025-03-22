@@ -86,11 +86,7 @@ function handleOpenLectureTab(url) {
 
                 chrome.scripting.executeScript({
                     target: { tabId: tab.id },
-                    files: [
-                        "scripts/constants.js",
-                        "scripts/helper.js",
-                        "scripts/lecture-player.js",
-                    ],
+                    files: ["scripts/lecture-player.js"],
                 });
             }
         });

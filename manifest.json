@@ -29,12 +29,17 @@
     },
     "content_scripts": [
         {
-            "matches": ["https://www.cccr-edu.or.kr/*"],
+            "matches": ["https://www.cccr-edu.or.kr/classroom/index*"],
             "js": [
                 "scripts/constants.js",
                 "scripts/helper.js",
                 "scripts/content.js"
             ],
+            "run_at": "document_idle"
+        },
+        {
+            "matches": ["https://www.cccr-edu.or.kr/classroom/viewer*"],
+            "js": ["scripts/constants.js", "scripts/helper.js"],
             "run_at": "document_idle"
         }
     ],
