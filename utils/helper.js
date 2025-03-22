@@ -15,6 +15,8 @@ export async function sendDiscordMessage(webhookUrl, content) {
             },
             body: JSON.stringify({
                 username: "Lecto Bot",
+                avatar_url:
+                    "https://avatars.githubusercontent.com/u/71831926?v=4",
                 content: content,
             }),
         });

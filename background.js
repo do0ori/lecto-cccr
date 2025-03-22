@@ -15,8 +15,8 @@ function handleCompletionNotification() {
                 chrome.notifications.create(
                     {
                         type: "basic",
-                        title: "🤖Lecto has completed all lectures for you!",
-                        message: `${totalLectures} Lectures Completed✅`,
+                        title: "🤖 Lecto has completed all lectures for you!",
+                        message: `${totalLectures} Lectures Completed ✅`,
                         iconUrl: "icons/cccr_extension.png",
                     },
                     (notificationId) => {
@@ -39,7 +39,7 @@ function handleCompletionNotification() {
             if (discordNotiEnabled && webhookUrl) {
                 await sendDiscordMessage(
                     webhookUrl,
-                    `# 🤖 강의 수강을 모두 완료했습니다!\n${totalLectures}개 강의가 수강 완료되었습니다.`
+                    `# 🎉 강의 수강 완료!\n> ${totalLectures}개 강의가 수강 완료되었습니다.`
                 );
             }
         }
