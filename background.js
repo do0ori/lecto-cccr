@@ -65,32 +65,38 @@ function handleCompletionNotification() {
 }
 
 function handleOpenLectureTab(url) {
-    chrome.tabs.create({ url, active: true }, (tab) => {
-        // 기존 탭으로 잠시 포커스 이동
-        setTimeout(() => {
-            chrome.tabs.update(originalTabId, { active: true }, () => {
-                log("기존 탭으로 잠시 이동");
+    chrome.tabs.create(
+        { url, active: true, openerTabId: originalTabId },
+        (tab) => {
+            // 기존 탭으로 잠시 포커스 이동
+            setTimeout(() => {
+                chrome.tabs.update(originalTabId, { active: true }, () => {
+                    log("기존 탭으로 잠시 이동");
 
-                // 새 탭으로 다시 포커스 이동 (alert 제거 효과)
-                setTimeout(() => {
-                    chrome.tabs.update(tab.id, { active: true }, () => {
-                        log("새 강의 탭으로 다시 이동");
-                    });
-                }, 1000);
-            });
-        }, 1000);
-
-        chrome.tabs.onUpdated.addListener(function listener(tabId, changeInfo) {
-            if (tabId === tab.id && changeInfo.status === "complete") {
-                chrome.tabs.onUpdated.removeListener(listener);
-
-                chrome.scripting.executeScript({
-                    target: { tabId: tab.id },
-                    files: ["scripts/lecture-player.js"],
+                    // 새 탭으로 다시 포커스 이동 (alert 제거 효과)
+                    setTimeout(() => {
+                        chrome.tabs.update(tab.id, { active: true }, () => {
+                            log("새 강의 탭으로 다시 이동");
+                        });
+                    }, 1000);
                 });
-            }
-        });
-    });
+            }, 1000);
+
+            chrome.tabs.onUpdated.addListener(function listener(
+                tabId,
+                changeInfo
+            ) {
+                if (tabId === tab.id && changeInfo.status === "complete") {
+                    chrome.tabs.onUpdated.removeListener(listener);
+
+                    chrome.scripting.executeScript({
+                        target: { tabId: tab.id },
+                        files: ["scripts/lecture-player.js"],
+                    });
+                }
+            });
+        }
+    );
 }
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
