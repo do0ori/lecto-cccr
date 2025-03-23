@@ -38,16 +38,16 @@ CCCR 아카데미의 아직 수강하지 않은 미완료 강의들을 모두 �
     - 멈추기 버튼을 눌러 실행을 중지할 수 있습니다.
     - 오른쪽의 설정 아이콘을 클릭하면 설정창이 열리고 설정창 외부를 클릭하면 닫힙니다.
 
-        ![image](https://github.com/user-attachments/assets/c7b94fc3-668d-42a9-ae63-7fc2b75f93ac)
+        ![image](https://github.com/user-attachments/assets/1f7527ca-952e-40e6-a2ef-e5e8c064414f)
 
-        - **web notification**
+        - **Web Notification**
 
             ![image](https://github.com/user-attachments/assets/0ca41857-1afb-4365-8f2a-91cd01c486a5)
 
             - 모든 미완료 강의들을 수강 완료하면 웹 알림을 보냅니다.
             - 소리가 없습니다.
 
-        - **discord notification**
+        - **Discord Notification**
 
             ![image](https://github.com/user-attachments/assets/24196732-7fe9-4410-a3b6-0bb0e609b88a)
 
