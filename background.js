@@ -2,8 +2,9 @@ import { ACTIONS } from "./utils/constants.js";
 import { log, sendDiscordMessage } from "./utils/helper.js";
 
 let isRunning = false;
-let totalLectures = 0;
 let originalTabId = null;
+
+chrome.storage.sync.set({ completedLectures: 0 });
 
 function handleAutomation() {
     chrome.tabs.reload(originalTabId, () => {
@@ -26,15 +27,25 @@ function handleAutomation() {
 
 function handleCompletionNotification() {
     chrome.storage.sync.get(
-        ["webNotiEnabled", "discordNotiEnabled", "webhookUrl"],
-        async ({ webNotiEnabled, discordNotiEnabled, webhookUrl }) => {
+        [
+            "webNotiEnabled",
+            "discordNotiEnabled",
+            "webhookUrl",
+            "completedLectures",
+        ],
+        async ({
+            webNotiEnabled,
+            discordNotiEnabled,
+            webhookUrl,
+            completedLectures,
+        }) => {
             // 웹 알림 처리
             if (webNotiEnabled) {
                 chrome.notifications.create(
                     {
                         type: "basic",
                         title: "🤖 Lecto has completed all lectures for you!",
-                        message: `${totalLectures} Lectures Completed ✅`,
+                        message: `${completedLectures} Lectures Completed ✅`,
                         iconUrl: "icons/cccr_extension.png",
                     },
                     (notificationId) => {
@@ -57,7 +68,7 @@ function handleCompletionNotification() {
             if (discordNotiEnabled && webhookUrl) {
                 await sendDiscordMessage(
                     webhookUrl,
-                    `# 🎉 강의 수강 완료!\n> ${totalLectures}개 강의가 수강 완료되었습니다.`
+                    `# 🎉 강의 수강 완료!\n> ${completedLectures}개 강의가 수강 완료되었습니다.`
                 );
             }
         }
@@ -103,6 +114,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     switch (message.action) {
         case ACTIONS.EXECUTE_AUTOMATION:
             isRunning = true;
+            chrome.storage.sync.set({ completedLectures: 0 });
             if (!originalTabId) originalTabId = sender.tab.id;
             log("자동화 시작");
             handleAutomation();
@@ -111,28 +123,32 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         case ACTIONS.STOP_AUTOMATION:
             log("자동화 중지");
             isRunning = false;
-            totalLectures = 0;
             chrome.tabs.reload(originalTabId);
             break;
 
         case ACTIONS.END_AUTOMATION:
-            log("자동화 종료", "success");
+            log(`자동화 종료`, "success");
             handleCompletionNotification();
             isRunning = false;
-            totalLectures = 0;
             chrome.tabs.reload(originalTabId);
             break;
 
         case ACTIONS.OPEN_LECTURE_TAB:
-            log(`강의 탭 열기: ${message.url}`);
-            totalLectures++;
-            log(`${totalLectures}번 째 강의`);
-
-            if (message.url) {
-                handleOpenLectureTab(message.url);
-            } else {
+            if (!message.url) {
                 log("강의 URL을 찾을 수 없음", "error");
+                break;
             }
+
+            chrome.storage.sync.get(
+                ["completedLectures"],
+                ({ completedLectures }) => {
+                    const newCount = completedLectures + 1;
+                    chrome.storage.sync.set({ completedLectures: newCount });
+                    log(`강의 탭 열기: ${message.url}`);
+                    log(`${newCount}번째 강의 수강 중`);
+                }
+            );
+            handleOpenLectureTab(message.url);
             break;
 
         case ACTIONS.CLOSE_CURRENT_TAB:
